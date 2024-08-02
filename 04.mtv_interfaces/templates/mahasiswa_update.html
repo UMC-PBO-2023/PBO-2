@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>Update Mahasiswa</title>
+  </head>
+  <body>
+    <section class="container">
+      <div>
+        <h1>Edit Mahasiswa</h1>
+        <br /><br />
+        <a class="a-navigate" href="/mahasiswa"> Kembali</a><br /><br /><br /><br />
+
+        <form action="/mahasiswa/update-mahasiswa/{{obj.id}}" method="post">
+          <label for="nim">NIM</label><br />
+          <input type="text" id="nim" name="nim" required value="{{obj.nim}}" /><br /><br />
+
+          <label for="nama">Nama</label><br />
+          <input type="text" id="nama" name="nama" required value="{{obj.nama}}" /><br /><br />
+
+          <label for="kelas">Kelas</label><br />
+          <input type="text" id="kelas" name="kelas" required value="{{obj.kelas}}" /><br /><br />
+
+          <label for="program_studi">Program Studi</label><br />
+          <input type="text" id="program_studi" name="program_studi" required value="{{obj.program_studi}}" /><br /><br />
+
+          <label for="fakultas">Fakultas</label><br />
+          <input type="text" id="fakultas" name="fakultas" required value="{{obj.fakultas}}" /><br /><br /><br /><br />
+
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

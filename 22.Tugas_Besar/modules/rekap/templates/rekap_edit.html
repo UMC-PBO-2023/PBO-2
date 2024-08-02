@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="/static/form_khs.css" />
+    <title>Edit Tagihan</title>
+  </head>
+  <body class="container-body">
+    <section class="sider">
+      <div class="img-container">
+        <img src="{{url_for('static', filename='logo.png')}}" alt="logo" class="img" />
+        <p>UMC</p>
+      </div>
+      <a href="/" class="not-selection">KHS</a>
+      <a href="/rekap" class="selection">Rekap Tagihan</a>
+      <a href="/alumni" class="not-selection">Alumni</a>
+      <a href="/loker" class="not-selection">Lowongan Kerja</a>
+      <div class="account">
+        <img id="img-sider" src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="logo" class="img-user" />
+        <p id="user-name"></p>
+        <div class="options-user">
+          <a class="btn" onclick="navigateEdit()">Edit Profile</a>
+          <a class="btn-outline" onclick="handleLogout()">Logout</a>
+        </div>
+      </div>
+    </section>
+    <section class="container-content">
+      <div class="header">
+        <h3>Edit Rekap Tagihan</h3>
+      </div>
+      <div class="container-table">
+        <form action="/rekap/update/{{ obj.id }}" method="POST">
+          <div class="parent-input">
+            <p>Form Data Mahasiswa</p>
+
+            <div>
+              <div class="form-input form-input-mx"><input placeholder="Nim" type="text" id="nim" name="nim" required value="{{ obj.nim}}" /><label for="nim">Nim</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Nama" type="text" id="nama_mhs" name="nama_mhs" required value="{{ obj.nama_mhs}}" /><label for="nama_mhs">Nama</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Kelas" type="text" id="kelas" name="kelas" required value="{{ obj.kelas}}" /><label for="kelas">Kelas</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Program Studi" type="text" id="prodi" name="prodi" required value="{{ obj.prodi}}" /><label for="prodi">Program Studi</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Fakultas" type="text" id="fakultas" name="fakultas" required value="{{ obj.fakultas}}" /><label for="fakultas">Fakultas</label></div>
+            </div>
+          </div>
+          <div class="parent-input">
+            <p>Tagihan UKT</p>
+            <div>
+              <div class="form-input form-input-mx"><input placeholder="Semester I" type="text" id="ukt_smt1" name="ukt_smt1" required value="{{ obj.ukt_smt1}}" /><label for="ukt_smt1">Semester I</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Semester II" type="text" id="ukt_smt2" name="ukt_smt2" required value="{{ obj.ukt_smt2}}" /><label for="ukt_smt2">Semester II</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Semester III" type="text" id="ukt_smt3" name="ukt_smt3" required value="{{ obj.ukt_smt3}}" /><label for="ukt_smt3">Semester III</label></div>
+            </div>
+            <div style="margin-top: 2vh">
+              <div class="form-input form-input-mx"><input placeholder="Semester IV" type="text" id="ukt_smt4" name="ukt_smt4" required value="{{ obj.ukt_smt4}}" /><label for="ukt_smt4">Semester IV</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Semester V" type="text" id="ukt_smt5" name="ukt_smt5" required value="{{ obj.ukt_smt5}}" /><label for="ukt_smt5">Semester V</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Semester VI" type="text" id="ukt_smt6" name="ukt_smt6" required value="{{ obj.ukt_smt6}}" /><label for="ukt_smt6">Semester VI</label></div>
+            </div>
+          </div>
+
+          <div class="parent-input">
+            <p>Tagihan Uang Gedung dan DPP</p>
+            <div>
+              <div class="form-input form-input-mx"><input placeholder="Uang Gedung" type="text" id="uang_gedung" name="uang_gedung" required value="{{ obj.uang_gedung}}" /><label for="uang_gedung">Uang Gedung</label></div>
+              <div class="form-input form-input-mx"><input placeholder="DPP" type="text" id="dpp" name="dpp" required value="{{ obj.dpp}}" /><label for="dpp">DPP</label></div>
+            </div>
+          </div>
+
+          <input placeholder="" class="btn w-full smbt" type="submit" value="submit" />
+          <br />
+          <br />
+          <br />
+        </form>
+      </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      // =============== HANDLE AUTH ===============
+
+      if (!localStorage.getItem("nama")) {
+        window.location.href = "/auth/login";
+      }
+
+      document.getElementById("user-name").innerHTML = localStorage.getItem("nama");
+      document.getElementById("img-sider").src = `data:image/jpg;base64,${localStorage.getItem("photo")}`;
+      function handleLogout() {
+        localStorage.clear();
+        window.location.href = "/auth/login";
+      }
+      //============================================
+
+      function navigateEdit() {
+        window.location.href = `/auth/edit/${localStorage.getItem("id")}`;
+      }
+
+      $("form").submit(function (e) {
+        //prevent default
+        e.preventDefault();
+
+        //do something here
+        Swal.fire({
+          title: "Berhasil!",
+          text: "Data Rekap Tagihan berhasil diedit!",
+          icon: "success",
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+
+        //continue submitting
+        setTimeout(() => {
+          e.currentTarget.submit();
+        }, 1500);
+      });
+    </script>
+  </body>
+</html>

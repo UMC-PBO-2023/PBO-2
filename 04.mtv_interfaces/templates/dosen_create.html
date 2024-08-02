@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>Tambah Dosen</title>
+  </head>
+  <body>
+    <section class="container">
+      <div>
+        <h1>Tambah Dosen</h1>
+        <br /><br />
+        <a class="a-navigate" href="/dosen">Kembali</a><br /><br /><br /><br />
+
+        <form action="/dosen/store" method="post">
+          <label for="nidn">NIDN</label><br />
+          <input type="text" id="nidn" name="nidn" required /><br /><br />
+          <label for="nama">Nama</label><br />
+          <input type="text" id="nama" name="nama" required /><br /><br />
+          <label for="bidang">Bidang</label><br />
+          <input type="text" id="bidang" name="bidang" required /><br /><br /><br /><br />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

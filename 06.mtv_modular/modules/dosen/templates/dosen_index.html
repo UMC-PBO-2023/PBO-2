@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>Data Dosen</title>
+  </head>
+  <body>
+    <section class="sider">
+      <img src="{{url_for('static', filename='logo.png')}}" alt="logo" class="img" />
+      <a href="/" class="selection">Dosen</a>
+      <a href="/mahasiswa" class="not-selection">Mahasiswa</a>
+    </section>
+    <section class="container-content">
+      <h3>Data Dosen</h3>
+      <a class="btn align-self" href="/dosen/create">Tambah</a><br /><br />
+      <div class="container-table">
+        <table>
+          <thead>
+            <tr>
+              <th>NIDN</th>
+              <th>Nama</th>
+              <th>Bidang</th>
+              <th colspan="2">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for obj in data %}
+            <tr>
+              <td>{{ obj.nidn }}</td>
+              <td>{{ obj.nama }}</td>
+              <td>{{ obj.bidang }}</td>
+              <td><a class="btn" href="/dosen/edit/{{ obj.id }}">Edit</a></td>
+              <td><a class="btn-outline" href="/dosen/delete/{{ obj.id }}" title="delete" onclick="return confirm('Anda yakin untuk menghapus data ini?')">Hapus</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </body>
+</html>

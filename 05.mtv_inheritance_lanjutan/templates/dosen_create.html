@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tambah Dosen</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <h3>Tambah Dosen</h3>
+    <a href="/dosen"><button>Kembali</button></a><br /><br />
+    <form action="/dosen/store" method="POST">
+      <label for="nidn">NIDN:</label><br />
+      <input type="text" id="nidn" name="nidn" required /><br />
+      <label for="nama">Nama:</label><br />
+      <input type="text" id="nama" name="nama" required /><br />
+      <label for="bidang">Mata Kuliah:</label><br />
+      <input type="text" id="bidang" name="bidang" required /><br />
+      <br />
+      <input type="submit" value="Submit" class="submit-button" />
+    </form>
+  </body>
+</html>

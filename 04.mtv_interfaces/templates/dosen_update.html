@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>Update Dosen</title>
+  </head>
+  <body>
+    <section class="container">
+      <div>
+        <h1>Edit Dosen</h1>
+        <br /><br />
+        <a class="a-navigate" href="/dosen"> Kembali</a><br /><br /><br /><br />
+
+        <form action="/dosen/update/{{obj.id}}" method="post">
+          <label for="nidn">NIDN</label><br />
+          <input type="text" id="nidn" name="nidn" required value="{{obj.nidn}}" /><br /><br />
+          <label for="nama">Nama</label><br />
+          <input type="text" id="nama" name="nama" required value="{{obj.nama}}" /><br /><br />
+          <label for="bidang">Bidang</label><br />
+          <input type="text" id="bidang" name="bidang" required value="{{obj.bidang}}" /><br /><br /><br /><br />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

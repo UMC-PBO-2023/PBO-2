@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>Data Dosen</title>
+  </head>
+  <body>
+    <section class="container">
+      <div>
+        <h1>Data Dosen</h1>
+        <br /><br />
+        <div class="container-navigate">
+          <a class="a-navigate" href="/">Beranda</a>
+          <a class="a-navigate" href="/dosen/create">Tambah Dosen</a>
+        </div>
+        <br /><br /><br /><br />
+        <table>
+          <thead>
+            <tr>
+              <th>NIDN</th>
+              <th>Nama</th>
+              <th>Spesialis</th>
+              <th colspan="2">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for obj in data %}
+            <tr>
+              <td>{{obj.nidn}}</td>
+              <td>{{obj.nama}}</td>
+              <td>{{obj.bidang}}</td>
+              <td>
+                <a href="/dosen/edit/{{obj.id}}">Edit</a>
+              </td>
+              <td>
+                <a href="/dosen/delete/{{obj.id}}" title="delete" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </body>
+</html>

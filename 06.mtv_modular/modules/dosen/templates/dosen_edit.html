@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>Edit Dosen</title>
+  </head>
+  <body>
+    <section class="sider">
+      <img src="{{url_for('static', filename='logo.png')}}" alt="logo" class="img" />
+      <a href="/" class="selection">Dosen</a>
+      <a href="/mahasiswa" class="not-selection">Mahasiswa</a>
+    </section>
+    <section class="container-content">
+      <h3>Edit Dosen</h3>
+      <div class="container-table">
+        <form action="/dosen/update/{{ obj.id }}" method="POST">
+          <div class="group"><input type="text" id="nidn" name="nidn" required="required" value="{{ obj.nidn}}" /><span class="highlight"></span><span class="bar"></span><label for="nidn">Nidn</label></div>
+          <div class="group"><input type="text" id="nama" name="nama" required="required" value="{{ obj.nama}}" /><span class="highlight"></span><span class="bar"></span><label for="nama">Nama</label></div>
+          <div class="group"><input type="text" id="bidang" name="bidang" required="required" value="{{ obj.bidang}}" /><span class="highlight"></span><span class="bar"></span><label for="bidang">Bidang</label></div>
+          <br />
+          <br />
+          <br />
+          <input class="btn w-full" type="submit" value="submit" />
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

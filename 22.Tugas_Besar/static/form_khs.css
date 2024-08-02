@@ -1,0 +1,30 @@
+.parent-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+
+.parent-input div {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.parent-input p {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.699);
+  font-size: 18px;
+  width: 70%;
+  background-color: #e4dede;
+  text-align: center;
+  /* color: white; */
+  padding: 1vh 0px;
+  margin-bottom: 4vh;
+}
+
+.smbt {
+  margin: 5vh 0px;
+}

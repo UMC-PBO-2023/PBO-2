@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>Tambah Mahasiswa</title>
+  </head>
+  <body>
+    <section class="sider">
+      <img src="{{url_for('static', filename='logo.png')}}" alt="logo" class="img" />
+      <a href="/" class="not-selection">Dosen</a>
+      <a href="/mahasiswa" class="selection">Mahasiswa</a>
+    </section>
+    <section class="container-content">
+      <h3>Tambah Mahasiswa</h3>
+      <div class="container-table">
+        <form action="/mahasiswa/store" method="POST">
+          <div class="group"><input type="text" id="nim" name="nim" required="required" /><span class="highlight"></span><span class="bar"></span><label for="nim">Nim</label></div>
+          <div class="group"><input type="text" id="nama" name="nama" required="required" /><span class="highlight"></span><span class="bar"></span><label for="nama">Nama</label></div>
+          <div class="group"><input type="text" id="kelas" name="kelas" required="required" /><span class="highlight"></span><span class="bar"></span><label for="kelas">Kelas</label></div>
+          <div class="group"><input type="text" id="program_studi" name="program_studi" required="required" /><span class="highlight"></span><span class="bar"></span><label for="program_studi">Program Studi</label></div>
+          <div class="group"><input type="text" id="fakultas" name="fakultas" required="required" /><span class="highlight"></span><span class="bar"></span><label for="fakultas">Fakultas</label></div>
+          <br />
+          <br />
+          <br />
+          <input class="btn w-full" type="submit" value="submit" />
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

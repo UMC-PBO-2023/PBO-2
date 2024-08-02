@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tambah Mahasiswa</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <h3>Tambah Mahasiswa</h3>
+    <a href="/mahasiswa"><button>Kembali</button></a><br /><br />
+    <form action="/mahasiswa/store" method="POST">
+      <label for="nim">NIM:</label><br />
+      <input type="text" id="nim" name="nim" required /><br />
+      <label for="nama">Nama:</label><br />
+      <input type="text" id="nama" name="nama" required /><br />
+      <label for="kelas">Kelas:</label><br />
+      <input type="text" id="kelas" name="kelas" required /><br />
+      <label for="program_studi">Program Studi:</label><br />
+      <input type="text" id="program_studi" name="program_studi" required /><br />
+      <label for="fakultas">Fakultas :</label><br />
+      <input type="text" id="fakultas" name="fakultas" required /><br />
+      <br />
+      <input type="submit" value="Submit" class="submit-button" />
+    </form>
+  </body>
+</html>

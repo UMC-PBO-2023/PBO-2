@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="/static/form_khs.css" />
+    <title>Tambah KHS</title>
+  </head>
+  <body class="container-body">
+    <section class="sider">
+      <div class="img-container">
+        <img src="{{url_for('static', filename='logo.png')}}" alt="logo" class="img" />
+        <p>UMC</p>
+      </div>
+      <a href="/" class="selection">KHS</a>
+      <a href="/rekap" class="not-selection">Rekap Tagihan</a>
+      <a href="/alumni" class="not-selection">Alumni</a>
+      <a href="/loker" class="not-selection">Lowongan Kerja</a>
+      <div class="account">
+        <img id="img-sider" src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="logo" class="img-user" />
+        <p id="user-name"></p>
+        <div class="options-user">
+          <a class="btn" onclick="navigateEdit()">Edit Profile</a>
+          <a class="btn-outline" onclick="handleLogout()">Logout</a>
+        </div>
+      </div>
+    </section>
+    <section class="container-content">
+      <div class="header">
+        <h3>Tambah KHS</h3>
+      </div>
+      <div class="container-table">
+        <form action="/khs/store" method="POST">
+          <div class="parent-input">
+            <p>Form Data Mahasiswa</p>
+
+            <div>
+              <div class="form-input form-input-mx"><input placeholder="Nim" type="text" id="nim" name="nim" required /><label for="nim">Nim</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Nama" type="text" id="nama_mhs" name="nama_mhs" required /><label for="nama_mhs">Nama</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Kelas" type="text" id="kelas" name="kelas" required /><label for="kelas">Kelas</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Program Studi" type="text" id="prodi" name="prodi" required /><label for="prodi">Program Studi</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Fakultas" type="text" id="homebase" name="homebase" required /><label for="homebase">Fakultas</label></div>
+            </div>
+          </div>
+          <!-- matkul basis data -->
+          <div class="parent-input">
+            <p>Form Basis Data</p>
+            <div>
+              <div class="form-input form-input-mx"><input placeholder="Sks" type="text" id="sks_basis_data" name="sks_basis_data" required onchange="onchangeSksBasisData(this.value)" /><label for="sks_basis_data">Sks</label></div>
+
+              <div class="select">
+                <select class="select-text" id="nilai_basis_data" name="nilai_basis_data" onchange="onchangeNilaiBasisData(this.value)" required>
+                  <option value="" selected hidden></option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                </select>
+                <label for="nilai_basis_data" class="select-label">Nilai</label>
+              </div>
+
+              <div class="form-input form-input-mx"><input placeholder="Bobot" type="text" id="bobot_basis_data" name="bobot_basis_data" required /><label for="bobot_basis_data">Bobot</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Am" type="text" id="am_basis_data" name="am_basis_data" required="am_basis_data" /><label for="am_basis_data">Am</label></div>
+            </div>
+          </div>
+          <!-- end matkul basis data -->
+
+          <!-- matkul etika profesi -->
+          <div class="parent-input">
+            <p>Form Etika Profesi</p>
+            <div>
+              <div class="form-input form-input-mx"><input placeholder="Sks" type="text" id="sks_etika_profesi" name="sks_etika_profesi" required onchange="onchangeSksEtpro(this.value)" /><label for="sks_etika_profesi">Sks</label></div>
+
+              <div class="select">
+                <select class="select-text" id="nilai_etika_profesi" name="nilai_etika_profesi" required onchange="onchangeNilaiEtpro(this.value)">
+                  <option value="" selected hidden></option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                </select>
+                <label for="nilai_etika_profesi" class="select-label">Nilai</label>
+              </div>
+
+              <div class="form-input form-input-mx"><input placeholder="Bobot" type="text" id="bobot_etika_profesi" name="bobot_etika_profesi" required /><label for="bobot_etika_profesi">Bobot</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Am" type="text" id="am_etika_profesi" name="am_etika_profesi" required /><label for="am_etika_profesi">Am</label></div>
+            </div>
+          </div>
+          <!-- end matkul etika profesi -->
+
+          <!-- matkul pbo2 -->
+          <div class="parent-input">
+            <p>Form Pemrograman Berorientasi Objek 2</p>
+            <div>
+              <div class="form-input form-input-mx"><input placeholder="Sks" type="text" id="sks_pbo2" name="sks_pbo2" required onchange="onchangeSksPbo(this.value)" /><label for="sks_pbo2">Sks</label></div>
+
+              <div class="select">
+                <select class="select-text" id="nilai_pbo2" name="nilai_pbo2" required onchange="onchangeNilaiPbo(this.value)">
+                  <option value="" selected hidden></option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                </select>
+                <label for="nilai_pbo2" class="select-label">Nilai</label>
+              </div>
+
+              <div class="form-input form-input-mx"><input placeholder="Bobot" type="text" id="bobot_pbo2" name="bobot_pbo2" required /><label for="bobot_pbo2">Bobot</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Am" type="text" id="am_pbo2" name="am_pbo2" required /><label for="am_pbo2">Am</label></div>
+            </div>
+          </div>
+          <!-- end matkul pbo2 -->
+
+          <!-- matkul jarkom -->
+          <div class="parent-input">
+            <p>Form Jaringan Komputer</p>
+            <div>
+              <div class="form-input form-input-mx">
+                <input placeholder="Sks" type="text" id="sks_jaringan_komputer" name="sks_jaringan_komputer" required onchange="onchangeNilaiJarkom(this.value)" /><label for="sks_jaringan_komputer">Sks</label>
+              </div>
+
+              <div class="select">
+                <select class="select-text" id="nilai_jaringan_komputer" name="nilai_jaringan_komputer" onchange="onchangeNilaiJarkom(this.value)" required>
+                  <option value="" selected hidden></option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                </select>
+                <label for="nilai_jaringan_komputer" class="select-label">Nilai</label>
+              </div>
+
+              <div class="form-input form-input-mx"><input placeholder="Bobot" type="text" id="bobot_jaringan_komputer" name="bobot_jaringan_komputer" required /><label for="bobot_jaringan_komputer">Bobot</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Am" type="text" id="am_jaringan_komputer" name="am_jaringan_komputer" required /><label for="am_jaringan_komputer">Am</label></div>
+            </div>
+          </div>
+          <!-- end matkul jarkom -->
+
+          <!-- matkul robotika -->
+          <div class="parent-input">
+            <p>Form Robotika</p>
+            <div>
+              <div class="form-input form-input-mx"><input placeholder="Sks" type="text" id="sks_robotika" name="sks_robotika" required onchange="onchangeSksRobotika(this.value)" /><label for="sks_robotika">Sks</label></div>
+
+              <div class="select">
+                <select class="select-text" id="nilai_robotika" name="nilai_robotika" required onchange="onchangeNilaiRobotika(this.value)">
+                  <option value="" selected hidden></option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                </select>
+                <label for="nilai_robotika" class="select-label">Nilai</label>
+              </div>
+
+              <div class="form-input form-input-mx"><input placeholder="Bobot" type="text" id="bobot_robotika" name="bobot_robotika" required /><label for="bobot_robotika">Bobot</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Am" type="text" id="am_robotika" name="am_robotika" required /><label for="am_robotika">Am</label></div>
+            </div>
+          </div>
+          <!-- end matkul robotika -->
+
+          <br />
+          <br />
+          <br />
+          <input placeholder="" class="btn w-full smbt" type="submit" value="submit" />
+        </form>
+      </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      // =============== HANDLE AUTH ===============
+
+      if (!localStorage.getItem("nama")) {
+        window.location.href = "/auth/login";
+      }
+
+      document.getElementById("user-name").innerHTML = localStorage.getItem("nama");
+      document.getElementById("img-sider").src = `data:image/jpg;base64,${localStorage.getItem("photo")}`;
+      function handleLogout() {
+        localStorage.clear();
+        window.location.href = "/auth/login";
+      }
+      //============================================
+      function navigateEdit() {
+        window.location.href = `/auth/edit/${localStorage.getItem("id")}`;
+      }
+
+      var getDataSksBasdat = document.getElementById("sks_basis_data");
+      var getDataSksEtpro = document.getElementById("sks_etika_profesi");
+      var getDataSksPbo = document.getElementById("sks_pbo2");
+      var getDataSksJarkom = document.getElementById("sks_jaringan_komputer");
+      var getDataSksRobotika = document.getElementById("sks_robotika");
+
+      var getDataNilaiBasdat = document.getElementById("nilai_basis_data");
+      var getDataNilaiEtpro = document.getElementById("nilai_etika_profesi");
+      var getDataNilaiPbo = document.getElementById("nilai_pbo2");
+      var getDataNilaiJarkom = document.getElementById("nilai_jaringan_komputer");
+      var getDataNilaiRobotika = document.getElementById("nilai_robotika");
+
+      var getDataBobotBasdat = document.getElementById("bobot_basis_data");
+      var getDataBobotEtpro = document.getElementById("bobot_etika_profesi");
+      var getDataBobotPbo = document.getElementById("bobot_pbo2");
+      var getDataBobotJarkom = document.getElementById("bobot_jaringan_komputer");
+      var getDataBobotRobotika = document.getElementById("bobot_robotika");
+
+      var getDataAmBasdat = document.getElementById("am_basis_data");
+      var getDataAmEtpro = document.getElementById("am_etika_profesi");
+      var getDataAmPbo = document.getElementById("am_pbo2");
+      var getDataAmJarkom = document.getElementById("am_jaringan_komputer");
+      var getDataAmRobotika = document.getElementById("am_robotika");
+
+      // =============== onchange basis data ==================
+
+      function onchangeNilaiBasisData(value) {
+        if (value === "A") {
+          getDataBobotBasdat.value = "4";
+        }
+        if (value === "B") {
+          getDataBobotBasdat.value = "3";
+        }
+        if (value === "C") {
+          getDataBobotBasdat.value = "2";
+        }
+        if (value === "D") {
+          getDataBobotBasdat.value = "1";
+        }
+        if (value === "E") {
+          getDataBobotBasdat.value = "0";
+        }
+
+        if ((parseInt(getDataSksBasdat.value) * parseInt(getDataBobotBasdat.value) && !NaN) || parseInt(getDataSksBasdat.value) * parseInt(getDataBobotBasdat.value) === 0) {
+          getDataAmBasdat.value = parseInt(getDataSksBasdat.value) * parseInt(getDataBobotBasdat.value);
+        }
+      }
+
+      function onchangeSksBasisData(value) {
+        if ((parseInt(value) * parseInt(getDataBobotBasdat.value) && !NaN) || parseInt(value) * parseInt(getDataBobotBasdat.value) === 0) {
+          getDataAmBasdat.value = parseInt(value) * parseInt(getDataBobotBasdat.value);
+        }
+      }
+
+      // =====================================================
+
+      // =============== onchange etika profesi ==================
+
+      function onchangeNilaiEtpro(value) {
+        if (value === "A") {
+          getDataBobotEtpro.value = "4";
+        }
+        if (value === "B") {
+          getDataBobotEtpro.value = "3";
+        }
+        if (value === "C") {
+          getDataBobotEtpro.value = "2";
+        }
+        if (value === "D") {
+          getDataBobotEtpro.value = "1";
+        }
+        if (value === "E") {
+          getDataBobotEtpro.value = "0";
+        }
+
+        if ((parseInt(getDataSksEtpro.value) * parseInt(getDataBobotEtpro.value) && !NaN) || parseInt(getDataSksEtpro.value) * parseInt(getDataBobotEtpro.value) === 0) {
+          getDataAmEtpro.value = parseInt(getDataSksEtpro.value) * parseInt(getDataBobotEtpro.value);
+        }
+      }
+
+      function onchangeSksEtpro(value) {
+        if ((parseInt(value) * parseInt(getDataBobotEtpro.value) && !NaN) || parseInt(value) * parseInt(getDataBobotEtpro.value) === 0) {
+          getDataAmEtpro.value = parseInt(value) * parseInt(getDataBobotEtpro.value);
+        }
+      }
+
+      // =====================================================
+
+      // =============== onchange pbo2 ==================
+
+      function onchangeNilaiPbo(value) {
+        if (value === "A") {
+          getDataBobotPbo.value = "4";
+        }
+        if (value === "B") {
+          getDataBobotPbo.value = "3";
+        }
+        if (value === "C") {
+          getDataBobotPbo.value = "2";
+        }
+        if (value === "D") {
+          getDataBobotPbo.value = "1";
+        }
+        if (value === "E") {
+          getDataBobotPbo.value = "0";
+        }
+
+        if ((parseInt(getDataSksPbo.value) * parseInt(getDataBobotPbo.value) && !NaN) || parseInt(getDataSksPbo.value) * parseInt(getDataBobotPbo.value) === 0) {
+          getDataAmPbo.value = parseInt(getDataSksPbo.value) * parseInt(getDataBobotPbo.value);
+        }
+      }
+
+      function onchangeSksPbo(value) {
+        if ((parseInt(value) * parseInt(getDataBobotPbo.value) && !NaN) || parseInt(value) * parseInt(getDataBobotPbo.value) === 0) {
+          getDataAmPbo.value = parseInt(value) * parseInt(getDataBobotPbo.value);
+        }
+      }
+
+      // =====================================================
+
+      // =============== onchange jaringan komputer ==================
+
+      function onchangeNilaiJarkom(value) {
+        if (value === "A") {
+          getDataBobotJarkom.value = "4";
+        }
+        if (value === "B") {
+          getDataBobotJarkom.value = "3";
+        }
+        if (value === "C") {
+          getDataBobotJarkom.value = "2";
+        }
+        if (value === "D") {
+          getDataBobotJarkom.value = "1";
+        }
+        if (value === "E") {
+          getDataBobotJarkom.value = "0";
+        }
+
+        if ((parseInt(getDataSksJarkom.value) * parseInt(getDataBobotJarkom.value) && !NaN) || parseInt(getDataSksJarkom.value) * parseInt(getDataBobotJarkom.value) === 0) {
+          getDataAmJarkom.value = parseInt(getDataSksJarkom.value) * parseInt(getDataBobotJarkom.value);
+        }
+      }
+
+      function onchangeSksJarkom(value) {
+        if ((parseInt(value) * parseInt(getDataBobotJarkom.value) && !NaN) || parseInt(value) * parseInt(getDataBobotJarkom.value) === 0) {
+          getDataAmJarkom.value = parseInt(value) * parseInt(getDataBobotJarkom.value);
+        }
+      }
+
+      // =====================================================
+
+      // =============== onchange robotika ==================
+
+      function onchangeNilaiRobotika(value) {
+        if (value === "A") {
+          getDataBobotRobotika.value = "4";
+        }
+        if (value === "B") {
+          getDataBobotRobotika.value = "3";
+        }
+        if (value === "C") {
+          getDataBobotRobotika.value = "2";
+        }
+        if (value === "D") {
+          getDataBobotRobotika.value = "1";
+        }
+        if (value === "E") {
+          getDataBobotRobotika.value = "0";
+        }
+
+        if ((parseInt(getDataSksRobotika.value) * parseInt(getDataBobotRobotika.value) && !NaN) || parseInt(getDataSksRobotika.value) * parseInt(getDataBobotRobotika.value) === 0) {
+          getDataAmRobotika.value = parseInt(getDataSksRobotika.value) * parseInt(getDataBobotRobotika.value);
+        }
+      }
+
+      function onchangeSksRobotika(value) {
+        if ((parseInt(value) * parseInt(getDataBobotRobotika.value) && !NaN) || parseInt(value) * parseInt(getDataBobotRobotika.value) === 0) {
+          getDataAmRobotika.value = parseInt(value) * parseInt(getDataBobotRobotika.value);
+        }
+      }
+
+      // =====================================================
+
+      $("form").submit(function (e) {
+        //prevent default
+        e.preventDefault();
+
+        //do something here
+        Swal.fire({
+          title: "Berhasil!",
+          text: "Data KHS berhasil ditambahkan!",
+          icon: "success",
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+
+        //continue submitting
+        setTimeout(() => {
+          e.currentTarget.submit();
+        }, 1500);
+      });
+    </script>
+  </body>
+</html>

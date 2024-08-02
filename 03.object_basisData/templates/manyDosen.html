@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>Flask</title>
+  </head>
+  <body>
+    <div class="container styled-table">
+      <h1 style="font-family: sans-serif">Object Basisdata Dosen</h1>
+      <table class="">
+        <thead>
+          <tr>
+            <th>NIDN</th>
+            <th>Nama</th>
+            <th>Spesialis</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in dosen %}
+          <tr>
+            <td>{{row.nidn}}</td>
+            <td>{{row.nama}}</td>
+            <td>{{row.bidang}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </body>
+    </div>
+  </body>
+</html>

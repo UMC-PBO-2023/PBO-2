@@ -1,0 +1,122 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+}
+h3 {
+  color: #333;
+  text-align: center;
+}
+
+p {
+  color: #555;
+  text-align: center;
+}
+
+button {
+  display: block;
+  width: 200px;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+a {
+  text-decoration: none;
+}
+
+table {
+  margin: 0 auto;
+  width: 80%;
+}
+table,
+th,
+td {
+  border: 1px solid red;
+  border-collapse: collapse;
+  padding: 10px;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+form {
+  text-align: center;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.edit-button {
+  display: inline-block;
+  padding: 8px 16px;
+  margin-right: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #28a745; /* Warna hijau */
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.delete-button {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #dc3545; /* Warna merah */
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+input[type="text"] {
+  width: 30rem;
+  padding: 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+
+input[type="submit"] {
+  font-size: 18px;
+  width: 30rem;
+  background-color: #28a745;
+  padding: 14px;
+  border: none;
+  border-radius: 4px;
+  border: 1px solid #077a22;
+  cursor: pointer;
+  color: white;
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="/static/form_khs.css" />
+    <title>Tambah Data Alumni</title>
+  </head>
+  <body class="container-body">
+    <section class="sider">
+      <div class="img-container">
+        <img src="{{url_for('static', filename='logo.png')}}" alt="logo" class="img" />
+        <p>UMC</p>
+      </div>
+      <a href="/" class="not-selection">KHS</a>
+      <a href="/rekap" class="not-selection">Rekap Tagihan</a>
+      <a href="/alumni" class="selection">Alumni</a>
+      <a href="/loker" class="not-selection">Lowongan Kerja</a>
+      <div class="account">
+        <img id="img-sider" src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="logo" class="img-user" />
+        <p id="user-name"></p>
+        <div class="options-user">
+          <a class="btn" onclick="navigateEdit()">Edit Profile</a>
+          <a class="btn-outline" onclick="handleLogout()">Logout</a>
+        </div>
+      </div>
+    </section>
+    <section class="container-content">
+      <div class="header">
+        <h3>Tambah Data Alumni</h3>
+      </div>
+      <div class="container-table">
+        <form action="/alumni/store" method="POST">
+          <div class="parent-input">
+            <p>Data Alumni</p>
+            <div>
+              <div class="form-input form-input-mx"><input placeholder="Nama" type="text" id="nama" name="nama" required /><label for="nama">Nama</label></div>
+              <div class="form-input form-input-mx">
+                <input placeholder="Tanggal Yudisium" type="text" data-type="date" id="tgl_yudisium" name="tgl_yudisium" required />
+                <label for="tgl_yudisium">Tanggal Yudisium</label>
+                <div id="material-header-holder" style="display: none">
+                  <div class="ui-datepicker-material-header">
+                    <div class="ui-datepicker-material-day"></div>
+                    <div class="ui-datepicker-material-date">
+                      <div class="ui-datepicker-material-month"></div>
+                      <div class="ui-datepicker-material-day-num"></div>
+                      <div class="ui-datepicker-material-year"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- ================== -->
+              </div>
+              <div class="form-input form-input-mx"><input placeholder="Judul Skripsi" type="text" id="judul_skripsi" name="judul_skripsi" required /><label for="judul_skripsi">Judul Skripsi</label></div>
+            </div>
+            <div style="margin-top: 2vh">
+              <div class="form-input form-input-mx"><input placeholder="IPK Lulus" type="text" id="ipk_lulus" name="ipk_lulus" required /><label for="ipk_lulus">IPK Lulus</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Perusahaan" type="text" id="perusahaan" name="perusahaan" required /><label for="perusahaan">Perusahaan</label></div>
+              <div class="form-input form-input-mx"><input placeholder="Posisi/Jabatan" type="text" id="posisi" name="posisi" required /><label for="posisi">Posisi/Jabatan</label></div>
+            </div>
+          </div>
+
+          <br />
+          <br />
+          <br />
+          <input placeholder="" class="btn w-full smbt" type="submit" value="submit" />
+        </form>
+      </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/i18n/jquery.ui.datepicker-id.min.js"></script>
+    <script>
+      // =============== HANDLE AUTH ===============
+
+      if (!localStorage.getItem("nama")) {
+        window.location.href = "/auth/login";
+      }
+
+      document.getElementById("user-name").innerHTML = localStorage.getItem("nama");
+      document.getElementById("img-sider").src = `data:image/jpg;base64,${localStorage.getItem("photo")}`;
+      function handleLogout() {
+        localStorage.clear();
+        window.location.href = "/auth/login";
+      }
+      //============================================
+
+      function navigateEdit() {
+        window.location.href = `/auth/edit/${localStorage.getItem("id")}`;
+      }
+
+      $("form").submit(function (e) {
+        //prevent default
+        e.preventDefault();
+
+        //do something here
+        Swal.fire({
+          title: "Berhasil!",
+          text: "Data Alumni berhasil ditambahkan!",
+          icon: "success",
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+
+        //continue submitting
+        setTimeout(() => {
+          e.currentTarget.submit();
+        }, 1500);
+      });
+
+      //==================== DATE PICKER =============================
+      //==============================================================
+
+      $(function () {
+        // Indonesian month and day names
+        $.datepicker.regional["id"] = {
+          closeText: "Tutup",
+          prevText: "&#x3C;mundur",
+          nextText: "maju&#x3E;",
+          currentText: "Hari ini",
+          monthNames: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+          monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"],
+          dayNames: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"],
+          dayNamesShort: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+          dayNamesMin: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+          weekHeader: "Min",
+          dateFormat: "dd/mm/yy",
+          firstDay: 0,
+          isRTL: false,
+          showMonthAfterYear: false,
+          yearSuffix: "",
+        };
+        $.datepicker.setDefaults($.datepicker.regional["id"]);
+
+        // Initialize datepicker
+        $("input[data-type='date']").datepicker({
+          showButtonPanel: true,
+          closeText: "OK",
+          onSelect: function (dateText, inst) {
+            // Optional: handle selection
+          },
+        });
+
+        // Handle click on "Hari Ini" button
+        $(document).on("click", ".ui-datepicker-current", function () {
+          var today = new Date();
+          $("input[data-type='date']").datepicker("setDate", today);
+        });
+      });
+    </script>
+  </body>
+</html>

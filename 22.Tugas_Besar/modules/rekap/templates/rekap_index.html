@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/html2pdf.js/0.9.1/html2pdf.bundle.js"></script> -->
+    <script src="html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="/static/print_khs.css" />
+    <title>Rekap Tagihan</title>
+  </head>
+  <body class="container-body">
+    <section class="sider">
+      <div class="img-container">
+        <img src="{{url_for('static', filename='logo.png')}}" alt="logo" class="img" />
+        <p>UMC</p>
+      </div>
+      <a href="/" class="not-selection">KHS</a>
+      <a href="/rekap" class="selection">Rekap Tagihan</a>
+      <a href="/alumni" class="not-selection">Alumni</a>
+      <a href="/loker" class="not-selection">Lowongan Kerja</a>
+      <div class="account">
+        <img id="img-sider" src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="logo" class="img-user" />
+        <p id="user-name"></p>
+        <div class="options-user">
+          <a class="btn" onclick="navigateEdit()">Edit Profile</a>
+          <a class="btn-outline" onclick="handleLogout()">Logout</a>
+        </div>
+      </div>
+    </section>
+    <section class="container-content">
+      <div class="header">
+        <h3>Rekap Tagihan</h3>
+        <a class="btn" href="/rekap/create">Tambah</a><br /><br />
+      </div>
+      <div class="container-table">
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Nim</th>
+              <th>Nama</th>
+              <th>Kelas</th>
+              <th>Program Studi</th>
+              <th>Fakultas</th>
+              <th>Total Tagihan</th>
+              <th colspan="3">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for obj in data %}
+            <tr>
+              <td>{{ obj.nim }}</td>
+              <td>{{ obj.nama_mhs }}</td>
+              <td>{{ obj.kelas }}</td>
+              <td>{{ obj.prodi }}</td>
+              <td>{{ obj.fakultas }}</td>
+              <td class="format-currency">{{ obj.total }}</td>
+              <td class="action-width" id="{{obj.id}}" onclick="createPDF(this.id)"><span class="btn">Cetak</span></td>
+              <td class="action-width"><a class="btn" href="/rekap/edit/{{ obj.id }}">Edit</a></td>
+              <td class="action-width"><a class="btn-outline" title="{{obj.id}}" onclick="handleDelete(this.title)">Hapus</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="hidden">
+      <section id="print-content" class="print-khs">
+        <div class="header-print">
+          <img src="{{url_for('static', filename='logo.png')}}" alt="logo" class="img-header" />
+          <div class="header-content">
+            <span style="font-size: 16px; font-weight: 600">UNIVERSITAS MUHAMMADIYAH CIREBON</span>
+            <span style="font-size: 18px; font-weight: 600" id="header-info"></span>
+            <span>Kampus 1: Jl Tuparev No. 70 Cirebon 45103 Telp. +62-231-204276 Fax: +62-231-209608</span>
+            <span>Kampus 2 dan 3: Jl Fatahillah - Watubelah - Cirebon Email: info@umc.ac.id Website: www.umc.ac.id</span>
+          </div>
+        </div>
+
+        <div style="border: 2px solid black; width: 100%; margin-bottom: 3px; margin-top: 18px"></div>
+        <div style="border: 0.8px solid black; width: 100%; margin-bottom: 12px"></div>
+
+        <p style="text-align: center; font-weight: 600">Rekap Biaya</p>
+
+        <div class="mhs-info-container">
+          <div class="mhs-info">
+            <p class="mhs-info-children"><span class="col-span-children-1">NIM</span> <span class="col-span-children-2">:</span> <span id="print-nim" class="col-span-children-3"></span></p>
+            <p class="mhs-info-children"><span class="col-span-children-1">Nama</span> <span class="col-span-children-2">:</span> <span id="print-nama" class="col-span-children-3"></span></p>
+          </div>
+
+          <div class="mhs-info">
+            <p class="mhs-info-children"><span class="col-span-children-1">Program Studi</span> <span class="col-span-children-2">:</span> <span id="print-prodi" class="col-span-children-3"></span></p>
+            <p class="mhs-info-children"><span class="col-span-children-1">Homebase</span> <span class="col-span-children-2">:</span> <span id="print-fakultas" class="col-span-children-3"></span></p>
+          </div>
+        </div>
+
+        <table class="table-print">
+          <cols>
+            <col style="width: 14%" />
+            <col style="width: 12%" />
+            <col style="width: 12%" />
+            <col style="width: 12%" />
+            <col style="width: 12%" />
+            <col style="width: 12%" />
+            <col style="width: 12%" />
+            <col style="width: 14%" />
+          </cols>
+          <thead>
+            <tr>
+              <th>Biaya</th>
+              <th>Semester I</th>
+              <th>Semester II</th>
+              <th>Semester III</th>
+              <th>Semester IV</th>
+              <th>Semester V</th>
+              <th>Semester VI</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="print-biaya-ukt">UKT</td>
+              <td id="print-ukt-1" style="text-align: center"></td>
+              <td id="print-ukt-2" style="text-align: center"></td>
+              <td id="print-ukt-3" style="text-align: center"></td>
+              <td id="print-ukt-4" style="text-align: center"></td>
+              <td id="print-ukt-5" style="text-align: center"></td>
+              <td id="print-ukt-6" style="text-align: center"></td>
+              <td style="text-align: center" id="print-ukt-total"></td>
+            </tr>
+
+            <tr>
+              <td style="text-align: start">Uang Gedung</td>
+              <td id="print-ug" style="text-align: center"></td>
+              <td colspan="5"></td>
+              <td id="print-total-ug" style="text-align: center"></td>
+            </tr>
+
+            <tr>
+              <td style="text-align: start">Dpp</td>
+              <td id="print-dpp" style="text-align: center"></td>
+              <td colspan="5"></td>
+              <td id="print-total-dpp" style="text-align: center"></td>
+            </tr>
+
+            <tr>
+              <td style="text-align: center; font-weight: 600" colspan="7">Grand Total</td>
+              <td id="print-grand-total" style="text-align: center; font-weight: 600"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <i class="footer-khs">powered by D3 TF22A kelompok 1</i>
+      </section>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      // =============== HANDLE AUTH ===============
+
+      if (!localStorage.getItem("nama")) {
+        window.location.href = "/auth/login";
+      }
+
+      document.getElementById("user-name").innerHTML = localStorage.getItem("nama");
+      document.getElementById("img-sider").src = `data:image/jpg;base64,${localStorage.getItem("photo")}`;
+      function handleLogout() {
+        localStorage.clear();
+        window.location.href = "/auth/login";
+      }
+      //============================================
+
+      function navigateEdit() {
+        window.location.href = `/auth/edit/${localStorage.getItem("id")}`;
+      }
+
+      let data = "{{json}}";
+
+      data = data.replace(/&#34;/g, '"');
+
+      let jsonArray = JSON.parse(data);
+
+      function createPDF(id) {
+        var datas = jsonArray?.find((datas) => datas.id === parseInt(id));
+
+        // ========== PASS DATA ============
+
+        document.getElementById("header-info").innerHTML = `FAKULTAS ${datas.fakultas} - ${datas.prodi}`.toLocaleUpperCase();
+
+        document.getElementById("print-nim").innerHTML = datas.nim;
+        document.getElementById("print-nama").innerHTML = datas.nama_mhs;
+        document.getElementById("print-prodi").innerHTML = datas.prodi;
+        document.getElementById("print-fakultas").innerHTML = datas.fakultas;
+
+        document.getElementById("print-ukt-1").innerHTML = datas.ukt_smt1 === "0" ? "-" : parseInt(datas.ukt_smt1).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+        document.getElementById("print-ukt-2").innerHTML = datas.ukt_smt2 === "0" ? "-" : parseInt(datas.ukt_smt2).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+        document.getElementById("print-ukt-3").innerHTML = datas.ukt_smt3 === "0" ? "-" : parseInt(datas.ukt_smt3).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+        document.getElementById("print-ukt-4").innerHTML = datas.ukt_smt4 === "0" ? "-" : parseInt(datas.ukt_smt4).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+        document.getElementById("print-ukt-5").innerHTML = datas.ukt_smt5 === "0" ? "-" : parseInt(datas.ukt_smt5).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+        document.getElementById("print-ukt-6").innerHTML = datas.ukt_smt6 === "0" ? "-" : parseInt(datas.ukt_smt6).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+        document.getElementById("print-ukt-total").innerHTML = (parseInt(datas.ukt_smt1) + parseInt(datas.ukt_smt2) + parseInt(datas.ukt_smt3) + parseInt(datas.ukt_smt4) + parseInt(datas.ukt_smt5) + parseInt(datas.ukt_smt6))
+          .toLocaleString("id-ID", { style: "currency", currency: "IDR" })
+          .replace(",00", "");
+
+        document.getElementById("print-ug").innerHTML = datas.uang_gedung === "0" ? "-" : parseInt(datas.uang_gedung).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+        document.getElementById("print-total-ug").innerHTML = datas.uang_gedung === "0" ? "-" : parseInt(datas.uang_gedung).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+        document.getElementById("print-dpp").innerHTML = datas.dpp === "0" ? "-" : parseInt(datas.dpp).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+        document.getElementById("print-total-dpp").innerHTML = datas.dpp === "0" ? "-" : parseInt(datas.dpp).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+
+        document.getElementById("print-grand-total").innerHTML = parseInt(datas.total).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "");
+        // =================================
+        var element = document.getElementById("print-content");
+        var clonedElement = element.cloneNode(true);
+        $(clonedElement).css("display", "block");
+        html2pdf(clonedElement, {
+          margin: 0.3,
+          padding: 0,
+          filename: `Tagihan-${datas.nim}`,
+          image: { type: "jpeg", quality: 1 },
+          html2canvas: { scale: 1, logging: true },
+          jsPDF: { unit: "in", format: "A4", orientation: "L" },
+          class: createPDF,
+        });
+        clonedElement.remove();
+      }
+
+      // dollars.toLocaleString("en-US", {style:"currency", currency:"USD"})
+
+      document.querySelectorAll(".format-currency").forEach((element) => (element.innerHTML = parseInt(element.innerHTML).toLocaleString("id-ID", { style: "currency", currency: "IDR" }).replace(",00", "")));
+
+      function handleDelete(id) {
+        Swal.fire({
+          title: "Hapus Data Rekap Tagihan?",
+          text: "Apakah yakin ingin menghapus data ini!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Hapus!",
+          cancelButtonText: "Batal!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: "Rekap Tagihan dihapus!",
+              text: "Rekap Tagihan telah berhasil dihapus.",
+              icon: "success",
+              showCancelButton: false,
+              showConfirmButton: false,
+            });
+
+            setTimeout(() => {
+              window.location.href = `/rekap/delete/${id}`;
+            }, 1000);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

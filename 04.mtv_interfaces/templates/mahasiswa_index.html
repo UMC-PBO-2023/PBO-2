@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>Data Mahasiswa</title>
+  </head>
+  <body>
+    <section class="container">
+      <div>
+        <h1>Data Mahasiswa</h1>
+        <br /><br />
+        <div class="container-navigate">
+          <a class="a-navigate" href="/">Beranda</a>
+          <a class="a-navigate" href="/mahasiswa/create-mahasiswa">Tambah Mahasiswa</a>
+        </div>
+        <br /><br /><br /><br />
+
+        <table>
+          <thead>
+            <tr>
+              <th>NIM</th>
+              <th>Nama</th>
+              <th>Kelas</th>
+              <th>Program Studi</th>
+              <th>Kelas</th>
+              <th colspan="2">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for obj in data %}
+            <tr>
+              <td>{{obj.nim}}</td>
+              <td>{{obj.nama}}</td>
+              <td>{{obj.kelas}}</td>
+              <td>{{obj.program_studi}}</td>
+              <td>{{obj.fakultas}}</td>
+              <td>
+                <a href="/mahasiswa/edit-mahasiswa/{{obj.id}}">Edit</a>
+              </td>
+              <td>
+                <a href="/mahasiswa/delete-mahasiswa/{{obj.id}}" title="delete" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </body>
+</html>
